@@ -1,0 +1,3 @@
+Hello, I am the example message file. This file will be used for testing
+the night writer file.
+This is an example!
