@@ -1,8 +1,9 @@
 file_array = ARGV
 
-#collector = []
 character_array = File.open(file_array[0]).each_char.map do |byte|
-  #collector.push(byte)
   byte
 end
-p character_array
+
+File.write(file_array[1], character_array)
+
+puts "Created #{file_array[1]} containing #{character_array.length} characters"
