@@ -77,4 +77,13 @@ describe BrailleConverter do
       expect(@converter.braille_dictionary).to eq(expected)
     end
   end
+
+  describe '#create_word_array' do
+    it 'reads a text file and creates an array of the words' do
+      expected = ['hello', 'world']
+
+      expect(@converter.create_word_array(@file1)).to be_an(Array)
+      expect(@converter.create_word_array(@file1)).to eq(expected)
+    end
+  end
 end
