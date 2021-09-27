@@ -14,6 +14,32 @@ class BrailleConverter
     File.read(file).split
   end
 
+  def create_line_array(word_array, width)
+    max_width = width
+    final_result = []
+    string_element = ''
+    word_array.each do |word|
+      if word.length > max_width
+        final_result.push(string_element) unless string_element.empty?
+        string_element = ''
+        word.each_char do |character|
+          string_element += character
+          if string_element.length == max_width
+            final_result.push(string_element)
+            string_element = ''
+          end
+        end
+      elsif (string_element + " " + word).length <= max_width
+        string_element += (" " + word)
+      else
+        final_result.push(string_element)
+        string_element = word
+      end
+    end
+    final_result.push(string_element)
+    final_result
+  end
+
   def braille_dict
     {
       'a' => ['0.','..','..'],
