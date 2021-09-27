@@ -10,6 +10,10 @@ class BrailleConverter
     @braille_dictionary = braille_dict
   end
 
+  def create_word_array(file)
+    File.read(file).split
+  end
+
   def braille_dict
     {
       'a' => ['0.','..','..'],
@@ -71,5 +75,4 @@ class BrailleConverter
       ',' => ['..','0.','..']
     }
   end
-
 end
