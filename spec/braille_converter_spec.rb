@@ -96,4 +96,17 @@ describe BrailleConverter do
       expect(@converter.create_line_array(example_word_array,40)).to eq(expected)
     end
   end
+
+  describe '#create_braille_array' do
+    it 'translates the line array into braille and creates a new array' do
+      example_word_array = @converter.create_word_array(@file1)
+      example_line_array = @converter.create_line_array(example_word_array,40)
+      expected = [[['0.','00','..'],['0.','.0','..'],['0.','0.','0.'],['0.','0.','0.'],
+      ['0.','.0','0.'],['..','..','..'],['.0','00','.0'],['0.','.0','0.'],['0.','00','0.'],
+      ['0.','0.','0.'],['00','.0','..']]]
+
+      expect(@converter.create_braille_array(example_line_array)).to be_an(Array)
+      expect(@converter.create_braille_array(example_line_array)).to eq(expected)
+    end
+  end
 end
