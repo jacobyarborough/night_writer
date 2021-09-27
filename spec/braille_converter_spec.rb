@@ -109,4 +109,19 @@ describe BrailleConverter do
       expect(@converter.create_braille_array(example_line_array)).to eq(expected)
     end
   end
+
+  describe '#print_braille_to_file' do
+    it 'prints the braille to a file' do
+      File.write(@file2,'')
+      example_word_array = @converter.create_word_array(@file1)
+      example_line_array = @converter.create_line_array(example_word_array,40)
+      example_braille_array = @converter.create_braille_array(example_line_array)
+      @converter.print_braille_to_file(example_braille_array, @file2)
+      expected = ["0.0.0.0.0....00.0.0.00\n", "00.00.0..0..00.0000..0\n",
+        "....0.0.0....00.0.0...\n"]
+
+      expect(File.readlines(@file2)).to be_an(Array)
+      expect(File.readlines(@file2)).to eq(expected)
+    end
+  end
 end
