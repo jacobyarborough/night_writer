@@ -1,5 +1,9 @@
 class BrailleConverter
 
+  attr_reader :file1,
+              :file2,
+              :braille_dictionary
+
   def initialize(file1, file2)
     @file1 = file1
     @file2 = file2
