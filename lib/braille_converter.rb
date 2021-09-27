@@ -44,7 +44,7 @@ class BrailleConverter
     final_result
   end
 
-  def create_braille(line_array)
+  def create_braille_array(line_array)
     braille_array = []
     array_builder = []
     line_array.each do |line|
