@@ -57,6 +57,17 @@ class BrailleConverter
     braille_array
   end
 
+  def print_braille_to_file(braille_array, file)
+    braille_array.each do |element|
+      new_array = element.transpose
+      File.open(file, "a") { |f|
+        f << "#{new_array[0].join('')}\n"
+        f << "#{new_array[1].join('')}\n"
+        f << "#{new_array[2].join('')}\n"
+      }
+    end
+  end
+
   def braille_dict
     {
       'a' => ['0.','..','..'],
