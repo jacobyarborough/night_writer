@@ -29,8 +29,12 @@ class BrailleConverter
             string_element = ''
           end
         end
-      elsif (string_element + " " + word).length <= max_width
-        string_element += (" " + word)
+      elsif
+        if (string_element + " " + word).length <= max_width && string_element.length > 0
+          string_element += (" " + word)
+        else
+          string_element += word
+        end
       else
         final_result.push(string_element)
         string_element = word
@@ -38,6 +42,19 @@ class BrailleConverter
     end
     final_result.push(string_element)
     final_result
+  end
+
+  def create_braille(line_array)
+    braille_array = []
+    array_builder = []
+    line_array.each do |line|
+      line.split('').each do |character|
+        array_builder.push(braille_dictionary[character])
+      end
+      braille_array.push(array_builder)
+      array_builder = []
+    end
+    braille_array
   end
 
   def braille_dict
