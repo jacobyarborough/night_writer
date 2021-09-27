@@ -90,10 +90,10 @@ describe BrailleConverter do
   describe '#create_line_array' do
     it 'returns an array of lines to be converted into braille' do
       example_word_array = @converter.create_word_array(@file1)
-      expected = ["hello","world"]
+      expected = ["hello world"]
 
-      expect(example_word_array).to be_an(Array)
-      expect(example_word_array).to eq(expected)
+      expect(@converter.create_line_array(example_word_array,40)).to be_an(Array)
+      expect(@converter.create_line_array(example_word_array,40)).to eq(expected)
     end
   end
 end
