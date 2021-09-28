@@ -108,6 +108,14 @@ class EnglishConverter
     final_result
   end
 
+  def print_english_to_file(english_array)
+    english_array.each do |element|
+      File.open(@file2, "a") { |f|
+        f << "#{element}\n"
+      }
+    end
+  end
+
   def braille_dict
     {
       'a' => ['0.','..','..'],
