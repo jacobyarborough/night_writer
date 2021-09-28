@@ -10,8 +10,8 @@ class BrailleConverter
     @braille_dictionary = braille_dict
   end
 
-  def create_word_array(file)
-    File.read(file).split
+  def create_word_array
+    File.read(@file1).split
   end
 
   def create_line_array(word_array, width)
