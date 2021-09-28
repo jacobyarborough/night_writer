@@ -136,4 +136,20 @@ describe EnglishConverter do
     end
   end
 
+  describe '#print_english_to_file' do
+    it 'prints the english to a file' do
+      File.write(@file2,'')
+      example_word_array = @converter.create_word_array
+      example_pairs = @converter.get_pairs(example_word_array)
+      example_line_groups = @converter.create_line_groups(example_pairs)
+      example_transpose_array = @converter.transpose(example_line_groups)
+      example_english_array = @converter.create_english_array(example_transpose_array)
+      example_english = @converter.create_line_array(example_english_array,80)
+      @converter.print_english_to_file(example_english)
+      expected = ["hello world\n"]
+
+      expect(File.readlines(@file2)).to be_an(Array)
+      expect(File.readlines(@file2)).to eq(expected)
+    end
+  end
 end
