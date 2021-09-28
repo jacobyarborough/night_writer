@@ -98,6 +98,7 @@ describe EnglishConverter do
 
 
       expect(@converter.get_pairs(example_word_array)).to eq(expected)
+      expect(@converter.get_pairs(example_word_array)).to be_an(Array)
     end
   end
 
@@ -110,6 +111,29 @@ describe EnglishConverter do
       ["..", "..", "0.", "0.", "0.", "..", ".0", "0.", "0.", "0.", ".."]]]
 
       expect(@converter.create_line_groups(example_pairs)).to eq(expected)
+      expect(@converter.create_line_groups(example_pairs)).to be_an(Array)
+    end
+  end
+
+  describe '#transpose' do
+    it 'tansposes each line in the line_groups array' do
+      example_word_array = @converter.create_word_array
+      example_pairs = @converter.get_pairs(example_word_array)
+      example_line_groups = @converter.create_line_groups(example_pairs)
+      expected = [[["0.", "00", ".."],
+      ["0.", ".0", ".."],
+      ["0.", "0.", "0."],
+      ["0.", "0.", "0."],
+      ["0.", ".0", "0."],
+      ["..", "..", ".."],
+      [".0", "00", ".0"],
+      ["0.", ".0", "0."],
+      ["0.", "00", "0."],
+      ["0.", "0.", "0."],
+      ["00", ".0", ".."]]]
+
+      expect(@converter.transpose(example_line_groups)).to eq(expected)
+      expect(@converter.transpose(example_line_groups)).to be_an(Array)
     end
   end
 
