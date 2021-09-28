@@ -14,6 +14,6 @@ class BrailleLogic
     english_line_array = @converter.create_line_array(english_word_array, 40)
     braille_line_array = @converter.create_braille_array(english_line_array)
     @converter.print_braille_to_file(braille_line_array)
-    puts "Created #{@write_file} containing #{File.readlines(@write_file).join("").length} characters"
+    puts "Created #{@write_file} containing #{english_line_array.join('').length} characters"
   end
 end
