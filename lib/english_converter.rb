@@ -35,6 +35,22 @@ class EnglishConverter
     paired_array
   end
 
+  def create_line_groups(pairs_array)
+    line_group_array = []
+    line_group = []
+    pairs_array.each do |line|
+      if line_group.length == 3
+        line_group_array.push(line_group)
+        line_group = []
+        line_group.push(line)
+      else
+        line_group.push(line)
+      end
+    end
+    line_group_array.push(line_group)
+    line_group_array
+  end
+
   def create_line_array(word_array, width)
     max_width = width
     final_result = []
