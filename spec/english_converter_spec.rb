@@ -89,7 +89,6 @@ describe EnglishConverter do
     end
   end
 
-
   describe '#get_pairs' do
     it 'changes the line array from being one solid line to pairs of . and 0' do
       example_word_array = @converter.create_word_array
@@ -102,6 +101,17 @@ describe EnglishConverter do
     end
   end
 
+  describe '#create_line_groups' do
+    it 'creates an array of line groupings of each three lines in a braille file' do
+      example_word_array = @converter.create_word_array
+      example_pairs = @converter.get_pairs(example_word_array)
+      expected = expected = [[["0.", "0.", "0.", "0.", "0.", "..", ".0", "0.", "0.", "0.", "00"],
+      ["00", ".0", "0.", "0.", ".0", "..", "00", ".0", "00", "0.", ".0"],
+      ["..", "..", "0.", "0.", "0.", "..", ".0", "0.", "0.", "0.", ".."]]]
+
+      expect(@converter.create_line_groups(example_pairs)).to eq(expected)
+    end
+  end
 
   describe '#create_line_array' do
     xit 'returns an array of lines to be converted into braille' do
