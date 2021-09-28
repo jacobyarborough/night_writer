@@ -1,4 +1,5 @@
-class BrailleConverter
+class EnglishConverter
+
   attr_reader :file1,
               :file2,
               :braille_dictionary
@@ -10,7 +11,71 @@ class BrailleConverter
   end
 
   def create_word_array
-    File.read(@file1).split
+    braille_string = File.read(@file1).split
+  end
+
+  def get_pairs(word_array)
+    paired_array = []
+    line_array = []
+    word_array.each do |line|
+      substring = ''
+      line.split('').each do |character|
+        if substring.length == 2
+          line_array.push(substring)
+          substring = ''
+          substring += character
+        else
+          substring += character
+        end
+      end
+      line_array.push(substring)
+      paired_array.push(line_array)
+      line_array = []
+    end
+    paired_array
+  end
+
+  def create_line_groups(pairs_array)
+    line_group_array = []
+    line_group = []
+    pairs_array.each do |line|
+      if line_group.length == 3
+        line_group_array.push(line_group)
+        line_group = []
+        line_group.push(line)
+      else
+        line_group.push(line)
+      end
+    end
+    line_group_array.push(line_group)
+    line_group_array
+  end
+
+  def transpose(line_group_array)
+    line_group_array.map do |line_group|
+      line_group.transpose
+    end
+  end
+
+  def create_english_array(transposed_braille_array)
+    english_character_array = []
+    english_word_array = []
+    transposed_braille_array.each do |braille_line|
+      braille_line.each do |braille_character|
+        english_character_array.push(braille_dict.key(braille_character))
+      end
+    end
+    word_string = ''
+    english_character_array.each do |character|
+      if character == ' '
+        english_word_array.push(word_string)
+        word_string = ''
+      else
+        word_string += character
+      end
+    end
+    english_word_array.push(word_string)
+    english_word_array
   end
 
   def create_line_array(word_array, width)
@@ -43,27 +108,10 @@ class BrailleConverter
     final_result
   end
 
-  def create_braille_array(line_array)
-    braille_array = []
-    array_builder = []
-    line_array.each do |line|
-      line.split('').each do |character|
-        array_builder.push(braille_dictionary[character])
-      end
-      braille_array.push(array_builder)
-      array_builder = []
-    end
-    braille_array
-  end
-
-  def print_braille_to_file(braille_array)
-    braille_array.each do |element|
-      new_array = element.transpose
-      require 'pry';binding.pry
+  def print_english_to_file(english_array)
+    english_array.each do |element|
       File.open(@file2, "a") { |f|
-        f << "#{new_array[0].join('')}\n"
-        f << "#{new_array[1].join('')}\n"
-        f << "#{new_array[2].join('')}\n"
+        f << "#{element}\n"
       }
     end
   end
@@ -96,32 +144,6 @@ class BrailleConverter
       'x' => ['00','..','00'],
       'y' => ['00','.0','00'],
       'z' => ['0.','.0','00'],
-      'A' => ['0.','..','..'],
-      'B' => ['0.','0.','..'],
-      'C' => ['0.','0.','..'],
-      'D' => ['00','.0','..'],
-      'E' => ['0.','.0','..'],
-      'F' => ['00','0.','..'],
-      'G' => ['00','00','..'],
-      'H' => ['0.','00','..'],
-      'I' => ['.0','0.','..'],
-      'J' => ['.0','00','..'],
-      'K' => ['0.','..','0.'],
-      'L' => ['0.','0.','0.'],
-      'M' => ['00','..','0.'],
-      'N' => ['00','.0','0.'],
-      'O' => ['0.','.0','0.'],
-      'P' => ['00','0.','0.'],
-      'Q' => ['00','00','0.'],
-      'R' => ['0.','00','0.'],
-      'S' => ['.0','0.','0.'],
-      'T' => ['.0','00','0.'],
-      'U' => ['0.','..','00'],
-      'V' => ['0.','0.','00'],
-      'W' => ['.0','00','.0'],
-      'X' => ['00','..','00'],
-      'Y' => ['00','.0','00'],
-      'Z' => ['0.','.0','00'],
       ' ' => ['..','..','..'],
       '.' => ['..','00','.0'],
       '?' => ['..','0.','00'],
