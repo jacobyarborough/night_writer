@@ -116,7 +116,7 @@ describe BrailleConverter do
       example_word_array = @converter.create_word_array
       example_line_array = @converter.create_line_array(example_word_array,40)
       example_braille_array = @converter.create_braille_array(example_line_array)
-      @converter.print_braille_to_file(example_braille_array, @file2)
+      @converter.print_braille_to_file(example_braille_array)
       expected = ["0.0.0.0.0....00.0.0.00\n", "00.00.0..0..00.0000..0\n",
         "....0.0.0....00.0.0...\n"]
 
