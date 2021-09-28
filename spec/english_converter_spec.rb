@@ -123,12 +123,16 @@ describe EnglishConverter do
   end
 
   describe '#create_line_array' do
-    xit 'returns an array of lines to be converted into braille' do
+    it 'returns an array of lines to be converted into braille' do
       example_word_array = @converter.create_word_array
+      example_pairs = @converter.get_pairs(example_word_array)
+      example_line_groups = @converter.create_line_groups(example_pairs)
+      example_transpose_array = @converter.transpose(example_line_groups)
+      example_english_array = @converter.create_english_array(example_transpose_array)
       expected = ["hello world"]
 
-      expect(@converter.create_line_array(example_word_array,40)).to be_an(Array)
-      expect(@converter.create_line_array(example_word_array,40)).to eq(expected)
+      expect(@converter.create_line_array(example_english_array,80)).to be_an(Array)
+      expect(@converter.create_line_array(example_english_array,80)).to eq(expected)
     end
   end
 
