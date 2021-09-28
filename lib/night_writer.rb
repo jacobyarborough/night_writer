@@ -1,9 +1,7 @@
+require './lib/braille_converter'
+require './lib/braille_logic'
 file_array = ARGV
 
-character_array = File.open(file_array[0]).each_char.map do |byte|
-  byte
-end
+translator = BrailleLogic.new(file_array)
 
-File.write(file_array[1], character_array)
-
-puts "Created #{file_array[1]} containing #{character_array.length} characters"
+translator.braille_conversion_logic
