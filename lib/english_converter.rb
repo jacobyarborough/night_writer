@@ -51,6 +51,12 @@ class EnglishConverter
     line_group_array
   end
 
+  def transpose(line_group_array)
+    line_group_array.map do |line_group|
+      line_group.transpose
+    end
+  end
+
   def create_line_array(word_array, width)
     max_width = width
     final_result = []
