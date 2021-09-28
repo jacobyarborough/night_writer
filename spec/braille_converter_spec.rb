@@ -82,14 +82,14 @@ describe BrailleConverter do
     it 'reads a text file and creates an array of the words' do
       expected = ['hello', 'world']
 
-      expect(@converter.create_word_array(@file1)).to be_an(Array)
-      expect(@converter.create_word_array(@file1)).to eq(expected)
+      expect(@converter.create_word_array).to be_an(Array)
+      expect(@converter.create_word_array).to eq(expected)
     end
   end
 
   describe '#create_line_array' do
     it 'returns an array of lines to be converted into braille' do
-      example_word_array = @converter.create_word_array(@file1)
+      example_word_array = @converter.create_word_array
       expected = ["hello world"]
 
       expect(@converter.create_line_array(example_word_array,40)).to be_an(Array)
@@ -99,7 +99,7 @@ describe BrailleConverter do
 
   describe '#create_braille_array' do
     it 'translates the line array into braille and creates a new array' do
-      example_word_array = @converter.create_word_array(@file1)
+      example_word_array = @converter.create_word_array
       example_line_array = @converter.create_line_array(example_word_array,40)
       expected = [[['0.','00','..'],['0.','.0','..'],['0.','0.','0.'],['0.','0.','0.'],
       ['0.','.0','0.'],['..','..','..'],['.0','00','.0'],['0.','.0','0.'],['0.','00','0.'],
@@ -113,7 +113,7 @@ describe BrailleConverter do
   describe '#print_braille_to_file' do
     it 'prints the braille to a file' do
       File.write(@file2,'')
-      example_word_array = @converter.create_word_array(@file1)
+      example_word_array = @converter.create_word_array
       example_line_array = @converter.create_line_array(example_word_array,40)
       example_braille_array = @converter.create_braille_array(example_line_array)
       @converter.print_braille_to_file(example_braille_array, @file2)
