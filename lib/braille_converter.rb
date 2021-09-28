@@ -59,7 +59,6 @@ class BrailleConverter
   def print_braille_to_file(braille_array)
     braille_array.each do |element|
       new_array = element.transpose
-      require 'pry';binding.pry
       File.open(@file2, "a") { |f|
         f << "#{new_array[0].join('')}\n"
         f << "#{new_array[1].join('')}\n"
