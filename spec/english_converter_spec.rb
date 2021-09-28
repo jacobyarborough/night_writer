@@ -39,32 +39,6 @@ describe EnglishConverter do
         'x' => ['00','..','00'],
         'y' => ['00','.0','00'],
         'z' => ['0.','.0','00'],
-        'A' => ['0.','..','..'],
-        'B' => ['0.','0.','..'],
-        'C' => ['0.','0.','..'],
-        'D' => ['00','.0','..'],
-        'E' => ['0.','.0','..'],
-        'F' => ['00','0.','..'],
-        'G' => ['00','00','..'],
-        'H' => ['0.','00','..'],
-        'I' => ['.0','0.','..'],
-        'J' => ['.0','00','..'],
-        'K' => ['0.','..','0.'],
-        'L' => ['0.','0.','0.'],
-        'M' => ['00','..','0.'],
-        'N' => ['00','.0','0.'],
-        'O' => ['0.','.0','0.'],
-        'P' => ['00','0.','0.'],
-        'Q' => ['00','00','0.'],
-        'R' => ['0.','00','0.'],
-        'S' => ['.0','0.','0.'],
-        'T' => ['.0','00','0.'],
-        'U' => ['0.','..','00'],
-        'V' => ['0.','0.','00'],
-        'W' => ['.0','00','.0'],
-        'X' => ['00','..','00'],
-        'Y' => ['00','.0','00'],
-        'Z' => ['0.','.0','00'],
         ' ' => ['..','..','..'],
         '.' => ['..','00','.0'],
         '?' => ['..','0.','00'],
@@ -134,6 +108,17 @@ describe EnglishConverter do
 
       expect(@converter.transpose(example_line_groups)).to eq(expected)
       expect(@converter.transpose(example_line_groups)).to be_an(Array)
+    end
+  end
+
+  describe '#create_english_array' do
+    it 'creates a string of english characters from the transposed braille array' do
+      example_word_array = @converter.create_word_array
+      example_pairs = @converter.get_pairs(example_word_array)
+      example_line_groups = @converter.create_line_groups(example_pairs)
+      example_transpose_array = @converter.transpose(example_line_groups)
+
+      expect(@converter.create_english_array(example_transpose_array)).to eq(["hello", "world"])
     end
   end
 
