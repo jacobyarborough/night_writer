@@ -57,6 +57,27 @@ class EnglishConverter
     end
   end
 
+  def create_english_array(transposed_braille_array)
+    english_character_array = []
+    english_word_array = []
+    transposed_braille_array.each do |braille_line|
+      braille_line.each do |braille_character|
+        english_character_array.push(braille_dict.key(braille_character))
+      end
+    end
+    word_string = ''
+    english_character_array.each do |character|
+      if character == ' '
+        english_word_array.push(word_string)
+        word_string = ''
+      else
+        word_string += character
+      end
+    end
+    english_word_array.push(word_string)
+    english_word_array
+  end
+
   def create_line_array(word_array, width)
     max_width = width
     final_result = []
@@ -115,32 +136,6 @@ class EnglishConverter
       'x' => ['00','..','00'],
       'y' => ['00','.0','00'],
       'z' => ['0.','.0','00'],
-      'A' => ['0.','..','..'],
-      'B' => ['0.','0.','..'],
-      'C' => ['0.','0.','..'],
-      'D' => ['00','.0','..'],
-      'E' => ['0.','.0','..'],
-      'F' => ['00','0.','..'],
-      'G' => ['00','00','..'],
-      'H' => ['0.','00','..'],
-      'I' => ['.0','0.','..'],
-      'J' => ['.0','00','..'],
-      'K' => ['0.','..','0.'],
-      'L' => ['0.','0.','0.'],
-      'M' => ['00','..','0.'],
-      'N' => ['00','.0','0.'],
-      'O' => ['0.','.0','0.'],
-      'P' => ['00','0.','0.'],
-      'Q' => ['00','00','0.'],
-      'R' => ['0.','00','0.'],
-      'S' => ['.0','0.','0.'],
-      'T' => ['.0','00','0.'],
-      'U' => ['0.','..','00'],
-      'V' => ['0.','0.','00'],
-      'W' => ['.0','00','.0'],
-      'X' => ['00','..','00'],
-      'Y' => ['00','.0','00'],
-      'Z' => ['0.','.0','00'],
       ' ' => ['..','..','..'],
       '.' => ['..','00','.0'],
       '?' => ['..','0.','00'],
